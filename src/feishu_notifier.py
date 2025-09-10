@@ -44,7 +44,9 @@ class FeishuNotifier:
     
     def send_success_notification(self, keyword_data: KeywordData, 
                                 comparison_result: Optional[ComparisonResult] = None,
-                                file_path: str = None) -> bool:
+                                file_path: str = None,
+                                comparison_file: str = None,
+                                business_report_file: str = None) -> bool:
         """
         发送成功通知
         
@@ -52,6 +54,8 @@ class FeishuNotifier:
             keyword_data: 关键词数据
             comparison_result: 对比结果
             file_path: 数据文件路径
+            comparison_file: 对比结果文件路径
+            business_report_file: 商业分析报告文件路径
             
         Returns:
             bool: 发送是否成功
@@ -62,7 +66,7 @@ class FeishuNotifier:
         
         try:
             # 构建消息内容
-            message = self._build_success_message(keyword_data, comparison_result, file_path)
+            message = self._build_success_message(keyword_data, comparison_result, file_path, comparison_file, business_report_file)
             
             # 发送消息
             success = self._send_message(message)
@@ -151,96 +155,41 @@ class FeishuNotifier:
     
     def _build_success_message(self, keyword_data: KeywordData,
                              comparison_result: Optional[ComparisonResult],
-                             file_path: str) -> Dict:
+                             file_path: str,
+                             comparison_file: str = None,
+                             business_report_file: str = None) -> Dict:
         """构建成功通知消息"""
         
-        # 基础信息 - 确保包含飞书机器人关键词
+        # 超级简洁的通知格式
         content_parts = [
-            "🚀 谷歌长尾词监控报告",
-            "━" * 30,
-            f"🔍 关键词: {keyword_data.main_keyword}",
-            f"⏰ 时间: {keyword_data.execution_time}",
-            f"⏱ 耗时: {keyword_data.execution_duration}",
-            "",
-            "📊 执行统计",
-            f"┣ 查询总数: {keyword_data.total_queries}",
-            f"┣ 成功查询: {keyword_data.successful_queries}",
-            f"┣ 成功率: {(keyword_data.successful_queries/keyword_data.total_queries*100):.1f}%",
-            f"┣ 采集词汇: {keyword_data.total_keywords_found}",
-            f"┗ 去重后: {keyword_data.unique_keywords}"
+            f"✅ {keyword_data.main_keyword} 监控完成"
         ]
         
-        # 对比结果
-        if comparison_result:
-            change_icon = "📈" if comparison_result.change_rate > 0 else "📉" if comparison_result.change_rate < 0 else "📊"
-            content_parts.extend([
-                "",
-                f"{change_icon} 趋势分析 (vs. 昨日)",
-                f"┗ 变化率: {comparison_result.change_rate:+.1f}% ({comparison_result.new_count - comparison_result.disappeared_count:+d})"
-            ])
+        # 核心数据一行显示
+        success_rate = (keyword_data.successful_queries/keyword_data.total_queries*100) if keyword_data.total_queries > 0 else 0
+        content_parts.append(f"📊 {keyword_data.unique_keywords:,}词 | {success_rate:.0f}%成功 | {keyword_data.execution_duration}")
+        
+        # 变化情况（仅在有变化时显示）
+        if comparison_result and (comparison_result.new_count > 0 or comparison_result.disappeared_count > 0):
+            change_text = f"📈 +{comparison_result.new_count} -{comparison_result.disappeared_count}"
+            if comparison_result.change_rate != 0:
+                change_text += f" ({comparison_result.change_rate:+.1f}%)"
+            content_parts.append(change_text)
             
-            # 新增关键词
+            # 仅显示前2个重要新词
             if comparison_result.new_count > 0:
-                content_parts.extend([
-                    "",
-                    f"🆕 新增关键词 ({comparison_result.new_count}个)"
-                ])
-                
-                max_display = min(10, len(comparison_result.new_keywords))
-                for i, keyword in enumerate(comparison_result.new_keywords[:max_display], 1):
-                    prefix = "┣" if i < max_display else "┗"
-                    content_parts.append(f"{prefix} {keyword}")
-                
-                if len(comparison_result.new_keywords) > max_display:
-                    remaining = len(comparison_result.new_keywords) - max_display
-                    content_parts.append(f"┗ ...还有{remaining}个")
-            
-            # 消失关键词
-            if comparison_result.disappeared_count > 0:
-                content_parts.extend([
-                    "",
-                    f"⬇️ 消失关键词 ({comparison_result.disappeared_count}个)"
-                ])
-                
-                max_display = min(5, len(comparison_result.disappeared_keywords))
-                for i, keyword in enumerate(comparison_result.disappeared_keywords[:max_display], 1):
-                    prefix = "┣" if i < max_display else "┗"
-                    content_parts.append(f"{prefix} {keyword}")
-                
-                if len(comparison_result.disappeared_keywords) > max_display:
-                    remaining = len(comparison_result.disappeared_keywords) - max_display
-                    content_parts.append(f"┗ ...还有{remaining}个")
+                top_keywords = comparison_result.new_keywords[:2]
+                if top_keywords:
+                    content_parts.append(f"🔥 {' | '.join(top_keywords)}")
+                    if comparison_result.new_count > 2:
+                        content_parts.append(f"   ...还有{comparison_result.new_count-2}个")
         
-        # 热门关键词TOP5
-        if self.notification_settings.get("include_statistics", True):
-            top_keywords = self._get_top_keywords(keyword_data, 5)
-            if top_keywords:
-                content_parts.extend([
-                    "",
-                    f"🔥 热门关键词 TOP5"
-                ])
-                for i, (keyword, count) in enumerate(top_keywords, 1):
-                    prefix = "┣" if i < len(top_keywords) else "┗"
-                    content_parts.append(f"{prefix} {keyword} ({count}次)")
-        
-        # 文件信息
-        if file_path:
-            import os
-            filename = os.path.basename(file_path)
-            content_parts.extend([
-                "",
-                f"💾 数据文件: {filename}"
-            ])
-        
-        # 底部标识 - 包含关键词
-        content_parts.extend([
-            "",
-            "━" * 30,
-            f"🤖 谷歌长尾词监控系统 · {datetime.now().strftime('%H:%M')}"
-        ])
+        # 商业分析状态（一行）
+        if business_report_file:
+            content_parts.append("💰 商业分析报告已生成")
         
         # 构建消息
-        content_text = "\\n".join(content_parts)
+        content_text = "\n".join(content_parts)
         
         message = {
             "msg_type": "text", 
@@ -256,44 +205,20 @@ class FeishuNotifier:
         """构建错误通知消息"""
         
         content_parts = [
-            "🚨 谷歌长尾词监控失败",
-            "━" * 30,
-            f"🔍 关键词: {main_keyword}",
-            f"⏰ 时间: {datetime.now().strftime('%m-%d %H:%M')}",
-            "",
-            f"💥 错误信息",
-            f"┗ {error_message}"
+            f"❌ {main_keyword} 监控失败",
+            f"💥 {error_message}"
         ]
         
-        # 执行统计
+        # 执行统计（简化显示）
         if execution_stats:
-            success_rate = 0
             total = execution_stats.get('total_requests', 0)
             success = execution_stats.get('successful_requests', 0)
-            if total > 0:
-                success_rate = (success / total * 100)
-            
-            content_parts.extend([
-                "",
-                f"📊 执行统计",
-                f"┣ 总请求: {total}",
-                f"┣ 成功: {success}",
-                f"┣ 失败: {execution_stats.get('failed_requests', 0)}",
-                f"┗ 成功率: {success_rate:.1f}%"
-            ])
+            success_rate = (success / total * 100) if total > 0 else 0
+            content_parts.append(f"📊 {success}/{total}请求 | {success_rate:.0f}%成功率")
         
-        content_parts.extend([
-            "",
-            f"🔧 建议操作",
-            f"┣ 检查网络连接",
-            f"┣ 验证配置文件",
-            f"┗ 查看详细日志",
-            "",
-            "━" * 30,
-            f"🤖 谷歌长尾词监控系统 · {datetime.now().strftime('%H:%M')}"
-        ])
+        content_parts.append(f"🕒 {datetime.now().strftime('%m-%d %H:%M')}")
         
-        content_text = "\\n".join(content_parts)
+        content_text = "\n".join(content_parts)
         
         message = {
             "msg_type": "text",

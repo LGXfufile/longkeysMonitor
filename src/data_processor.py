@@ -510,6 +510,130 @@ class DataProcessor:
             logger.error(f"导出数据失败: {e}")
             return None
     
+    def save_comparison_result(self, comparison_result) -> str:
+        """
+        保存对比结果
+        
+        Args:
+            comparison_result: ComparisonResult对象
+            
+        Returns:
+            str: 保存的文件路径
+        """
+        # 生成文件名：YYYY-MM-DD_主关键词_changes.json
+        safe_keyword = self._sanitize_filename(comparison_result.main_keyword)
+        filename = f"{comparison_result.current_date}_{safe_keyword}_changes.json"
+        file_path = self.data_dir / filename
+        
+        try:
+            # 准备保存数据
+            save_data = {
+                "metadata": {
+                    "main_keyword": comparison_result.main_keyword,
+                    "current_date": comparison_result.current_date,
+                    "previous_date": comparison_result.previous_date,
+                    "analysis_time": datetime.now().isoformat(),
+                    "file_version": "1.0"
+                },
+                "statistics": {
+                    "total_current": comparison_result.total_current,
+                    "total_previous": comparison_result.total_previous,
+                    "new_count": comparison_result.new_count,
+                    "disappeared_count": comparison_result.disappeared_count,
+                    "stable_count": comparison_result.stable_count,
+                    "change_rate": comparison_result.change_rate
+                },
+                "changes": {
+                    "new_keywords": comparison_result.new_keywords,
+                    "disappeared_keywords": comparison_result.disappeared_keywords,
+                    "stable_keywords": comparison_result.stable_keywords
+                }
+            }
+            
+            # 保存到文件
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(save_data, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"对比结果已保存: {file_path}")
+            logger.info(f"新增关键词: {comparison_result.new_count} 个")
+            logger.info(f"消失关键词: {comparison_result.disappeared_count} 个")
+            
+            return str(file_path)
+        
+        except Exception as e:
+            logger.error(f"保存对比结果失败: {e}")
+            raise
+    
+    def load_comparison_result(self, file_path: str) -> Optional[Dict]:
+        """
+        加载对比结果
+        
+        Args:
+            file_path: 对比结果文件路径
+            
+        Returns:
+            Optional[Dict]: 对比结果数据
+        """
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            logger.debug(f"对比结果加载成功: {file_path}")
+            return data
+        
+        except Exception as e:
+            logger.error(f"加载对比结果失败: {file_path}, 错误: {e}")
+            return None
+    
+    def list_comparison_files(self, main_keyword: str = None, limit: int = None) -> List[Dict]:
+        """
+        列出对比结果文件
+        
+        Args:
+            main_keyword: 过滤特定关键词，None表示所有关键词
+            limit: 限制返回数量
+            
+        Returns:
+            List[Dict]: 文件信息列表
+        """
+        files = []
+        
+        if main_keyword:
+            safe_keyword = self._sanitize_filename(main_keyword)
+            pattern = f"*_{safe_keyword}_changes.json"
+        else:
+            pattern = "*_changes.json"
+        
+        for file_path in self.data_dir.glob(pattern):
+            try:
+                stat = file_path.stat()
+                file_info = {
+                    "file_path": str(file_path),
+                    "filename": file_path.name,
+                    "size": stat.st_size,
+                    "created_time": datetime.fromtimestamp(stat.st_ctime),
+                    "modified_time": datetime.fromtimestamp(stat.st_mtime)
+                }
+                
+                # 解析文件名获取关键词和日期
+                name_parts = file_path.stem.split('_')
+                if len(name_parts) >= 3 and name_parts[-1] == 'changes':
+                    file_info["date"] = name_parts[0]
+                    file_info["keyword"] = '_'.join(name_parts[1:-1])
+                
+                files.append(file_info)
+            
+            except Exception as e:
+                logger.warning(f"读取对比文件信息失败: {file_path}, 错误: {e}")
+        
+        # 按修改时间倒序排序
+        files.sort(key=lambda x: x["modified_time"], reverse=True)
+        
+        if limit:
+            files = files[:limit]
+        
+        return files
+    
     def _sanitize_filename(self, filename: str) -> str:
         """清理文件名中的非法字符"""
         # 替换非法字符为下划线

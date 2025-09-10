@@ -11,7 +11,7 @@ import sys
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 # 添加src目录到Python路径
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -152,11 +152,23 @@ class KeywordMonitor:
             # 对比分析
             comparison_result = self.compare_analyzer.compare_with_previous_day(keyword_data)
             
+            # 保存对比结果（如果存在对比数据）
+            comparison_file = None
+            business_report_file = None
+            if comparison_result:
+                comparison_file = self.data_processor.save_comparison_result(comparison_result)
+                
+                # 自动执行商业价值分析
+                self.logger.info(f"检测到关键词变化，开始商业价值分析...")
+                business_report_file = self._run_business_analysis(comparison_file)
+            
             # 发送成功通知
             self.feishu_notifier.send_success_notification(
                 keyword_data,
                 comparison_result,
-                file_path
+                file_path,
+                comparison_file,
+                business_report_file
             )
             
             self.logger.info(f"关键词监控完成: {main_keyword}")
@@ -298,6 +310,94 @@ class KeywordMonitor:
             self.logger.error("数据导出失败")
         
         return export_file
+    
+    def _run_business_analysis(self, comparison_file: str) -> Optional[str]:
+        """
+        执行商业价值分析
+        
+        Args:
+            comparison_file: 对比结果文件路径
+            
+        Returns:
+            Optional[str]: 生成的HTML报告文件路径，失败返回None
+        """
+        try:
+            import subprocess
+            import os
+            
+            # 确保comparison_file存在
+            if not os.path.exists(comparison_file):
+                self.logger.error(f"对比文件不存在: {comparison_file}")
+                return None
+            
+            # 构建项目根目录
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(current_dir)
+            
+            # 构建商业分析脚本路径
+            business_analyzer_path = os.path.join(current_dir, "business_analyzer.py")
+            reports_dir = os.path.join(project_root, "reports")
+            
+            # 确保reports目录存在
+            os.makedirs(reports_dir, exist_ok=True)
+            
+            self.logger.info(f"启动商业价值分析: {comparison_file}")
+            
+            # 执行商业分析脚本
+            cmd = [
+                "python3", 
+                business_analyzer_path, 
+                comparison_file, 
+                "-o", reports_dir,
+                "-v"
+            ]
+            
+            # 在项目根目录执行
+            result = subprocess.run(
+                cmd, 
+                cwd=project_root,
+                capture_output=True, 
+                text=True, 
+                timeout=300  # 5分钟超时
+            )
+            
+            if result.returncode == 0:
+                # 解析输出，查找生成的HTML文件路径
+                output_lines = result.stdout.split('\n')
+                html_file = None
+                
+                for line in output_lines:
+                    if "报告已保存:" in line or "HTML报告已生成:" in line:
+                        # 提取文件路径
+                        html_file = line.split(":")[1].strip() if ":" in line else None
+                        break
+                
+                # 如果没有从输出中找到，尝试查找最新的HTML文件
+                if not html_file:
+                    import glob
+                    pattern = os.path.join(reports_dir, "business_analysis_*.html")
+                    html_files = glob.glob(pattern)
+                    if html_files:
+                        # 按修改时间排序，取最新的
+                        html_files.sort(key=os.path.getmtime, reverse=True)
+                        html_file = html_files[0]
+                
+                if html_file and os.path.exists(html_file):
+                    self.logger.info(f"商业价值分析完成: {html_file}")
+                    return html_file
+                else:
+                    self.logger.warning("商业价值分析完成，但未找到生成的HTML文件")
+                    return None
+            else:
+                self.logger.error(f"商业价值分析失败: {result.stderr}")
+                return None
+                
+        except subprocess.TimeoutExpired:
+            self.logger.error("商业价值分析超时")
+            return None
+        except Exception as e:
+            self.logger.error(f"执行商业价值分析异常: {e}")
+            return None
 
 
 def main():
