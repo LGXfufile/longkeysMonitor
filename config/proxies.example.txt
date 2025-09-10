@@ -1,0 +1,18 @@
+# 代理列表文件
+# 每行一个代理地址，支持HTTP/HTTPS/SOCKS5协议
+# 格式：protocol://host:port 或 host:port (默认http协议)
+# 以#开头的行为注释
+
+# HTTP代理示例
+# http://proxy1.example.com:8080
+# http://user:pass@proxy2.example.com:3128
+
+# HTTPS代理示例  
+# https://proxy3.example.com:8080
+
+# SOCKS5代理示例
+# socks5://proxy4.example.com:1080
+
+# 如果代理不需要协议前缀，默认使用HTTP
+# proxy5.example.com:8080
+# 192.168.1.100:3128

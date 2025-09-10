@@ -1,0 +1,9 @@
+# Crontab配置文件
+# 每天中午12点执行关键词监控
+0 12 * * * cd /app && python src/main.py run >> /app/logs/cron.log 2>&1
+
+# 每周日凌晨2点清理旧数据
+0 2 * * 0 cd /app && python src/main.py cleanup >> /app/logs/cron.log 2>&1
+
+# 每天凌晨1点备份数据 (可选)
+# 0 1 * * * cd /app && tar -czf /app/data/backup_$(date +\%Y\%m\%d).tar.gz /app/data/*.json >> /app/logs/cron.log 2>&1

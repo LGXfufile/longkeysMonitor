@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  keyword-monitor:
+    build: .
+    container_name: google-longtail-monitor
+    restart: unless-stopped
+    
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      
+    volumes:
+      # 配置文件挂载 (只读)
+      - ./config:/app/config:ro
+      
+      # 数据目录挂载 (读写)
+      - ./data:/app/data
+      
+      # 日志目录挂载 (读写)
+      - ./logs:/app/logs
+      
+      # 环境变量文件 (可选)
+      - ./.env:/app/.env:ro
+    
+    # 网络模式
+    network_mode: "bridge"
+    
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+    
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.path.insert(0, '/app'); from src.config_manager import ConfigManager; ConfigManager().load_config()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    # 日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # 可选: Nginx反向代理 (如果需要Web界面)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: keyword-monitor-nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./ssl:/etc/nginx/ssl:ro
+  #   depends_on:
+  #     - keyword-monitor
+
+  # 可选: 监控和日志收集
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: keyword-monitor-watchtower
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - WATCHTOWER_CLEANUP=true
+  #     - WATCHTOWER_POLL_INTERVAL=3600
+  #   command: --interval 3600
+
+# 网络配置
+networks:
+  default:
+    name: keyword-monitor-network
+
+# 数据卷配置
+volumes:
+  monitor-data:
+    driver: local
+  monitor-logs:
+    driver: local

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "main_keyword": "AI写作",
+    "execution_date": "2025-09-10",
+    "execution_time": "2025-09-10 01:30:48",
+    "total_queries": 2,
+    "successful_queries": 2,
+    "failed_queries": 0,
+    "execution_duration": "00:00:00",
+    "file_version": "1.0",
+    "created_at": "2025-09-10T01:30:48.535326"
+  },
+  "query_results": {
+    "AI写作": [
+      "ai写作",
+      "ai写作无限制",
+      "ai写作无敏感词",
+      "ai写作软件",
+      "ai写作小说",
+      "ai写作检测",
+      "ai写作在线",
+      "ai写作提示词",
+      "ai写作助手",
+      "ai写作网站",
+      "ai写作工具"
+    ],
+    "AI写作 a": [
+      "ai写作app"
+    ]
+  },
+  "statistics": {
+    "total_keywords_found": 12,
+    "unique_keywords": 12,
+    "average_suggestions_per_query": 6.0,
+    "queries_with_results": 2,
+    "empty_queries": 0
+  }
+}

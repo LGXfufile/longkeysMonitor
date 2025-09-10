@@ -1,0 +1,47 @@
+{
+  "keywords": [
+    {
+      "main_keyword": "AI写作",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "SEO工具",
+      "enabled": false,
+      "schedule": "0 14 * * *"
+    }
+  ],
+  "feishu_webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/fd8c7806-5aca-4dbf-b621-8b3f1c271bbd",
+  "request_settings": {
+    "base_delay": [1, 3],
+    "max_retries": 3,
+    "timeout": 10,
+    "dynamic_delay": true
+  },
+  "proxy_settings": {
+    "enabled": false,
+    "proxy_list": [
+      "http://proxy1.example.com:8080",
+      "http://proxy2.example.com:8080"
+    ],
+    "rotation": true
+  },
+  "search_settings": {
+    "include_single_letters": true,
+    "include_double_letters": true,
+    "include_prefix": true,
+    "include_suffix": true,
+    "languages": ["zh", "en"]
+  },
+  "storage_settings": {
+    "data_retention_days": 30,
+    "auto_cleanup": true,
+    "backup_enabled": false
+  },
+  "notification_settings": {
+    "notify_on_success": true,
+    "notify_on_error": true,
+    "include_statistics": true,
+    "max_keywords_display": 20
+  }
+}
