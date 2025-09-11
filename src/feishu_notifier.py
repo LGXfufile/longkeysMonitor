@@ -160,33 +160,66 @@ class FeishuNotifier:
                              business_report_file: str = None) -> Dict:
         """构建成功通知消息"""
         
-        # 超级简洁的通知格式
+        # 标题
         content_parts = [
-            f"✅ {keyword_data.main_keyword} 监控完成"
+            f"🎯 {keyword_data.main_keyword} - 谷歌长尾词监控完成"
         ]
         
-        # 核心数据一行显示
+        # 今日数据统计
         success_rate = (keyword_data.successful_queries/keyword_data.total_queries*100) if keyword_data.total_queries > 0 else 0
-        content_parts.append(f"📊 {keyword_data.unique_keywords:,}词 | {success_rate:.0f}%成功 | {keyword_data.execution_duration}")
+        content_parts.extend([
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📊 今日数据统计:",
+            f"• 总查询: {keyword_data.total_queries:,} 次",
+            f"• 成功率: {success_rate:.1f}%",
+            f"• 收集词汇: {keyword_data.unique_keywords:,} 个",
+            f"• 执行时长: {keyword_data.execution_duration}"
+        ])
         
-        # 变化情况（仅在有变化时显示）
+        # 变化分析（与昨日对比）
         if comparison_result and (comparison_result.new_count > 0 or comparison_result.disappeared_count > 0):
-            change_text = f"📈 +{comparison_result.new_count} -{comparison_result.disappeared_count}"
-            if comparison_result.change_rate != 0:
-                change_text += f" ({comparison_result.change_rate:+.1f}%)"
-            content_parts.append(change_text)
+            content_parts.extend([
+                "",
+                f"📈 与昨日对比变化:",
+                f"• 新增趋势词: {comparison_result.new_count} 个",
+                f"• 热度下降词: {comparison_result.disappeared_count} 个",
+                f"• 整体变化率: {comparison_result.change_rate:+.1f}%"
+            ])
             
-            # 仅显示前2个重要新词
+            # 重要新增关键词分析
             if comparison_result.new_count > 0:
-                top_keywords = comparison_result.new_keywords[:2]
-                if top_keywords:
-                    content_parts.append(f"🔥 {' | '.join(top_keywords)}")
-                    if comparison_result.new_count > 2:
-                        content_parts.append(f"   ...还有{comparison_result.new_count-2}个")
+                business_keywords = self._analyze_business_opportunities(comparison_result.new_keywords[:10])
+                if business_keywords:
+                    content_parts.extend([
+                        "",
+                        "💡 潜在商机关键词:",
+                        f"• {' | '.join(business_keywords[:3])}"
+                    ])
+                    if len(business_keywords) > 3:
+                        content_parts.append(f"• ...还有{len(business_keywords)-3}个商业机会")
+                
+                # 显示其他重要新词
+                other_keywords = [k for k in comparison_result.new_keywords[:6] if k not in business_keywords]
+                if other_keywords:
+                    content_parts.extend([
+                        "",
+                        "🔥 其他新增热词:",
+                        f"• {' | '.join(other_keywords[:3])}"
+                    ])
         
-        # 商业分析状态（一行）
+        # 商业分析状态
         if business_report_file:
-            content_parts.append("💰 商业分析报告已生成")
+            content_parts.extend([
+                "",
+                "📋 详细商业分析报告已生成"
+            ])
+        
+        # 时间戳
+        current_time = datetime.now().strftime('%m-%d %H:%M')
+        content_parts.extend([
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"⏰ {current_time} | 🤖 自动监控系统"
+        ])
         
         # 构建消息
         content_text = "\n".join(content_parts)
@@ -199,6 +232,56 @@ class FeishuNotifier:
         }
         
         return message
+    
+    def _analyze_business_opportunities(self, new_keywords: List[str]) -> List[str]:
+        """分析新增关键词的商业机会"""
+        business_keywords = []
+        
+        # 商业价值关键词识别
+        high_value_patterns = {
+            'SaaS/工具类': ['tool', 'generator', 'creator', 'maker', 'builder', 'platform', 'app'],
+            '电商/销售': ['ecommerce', 'shop', 'store', 'sell', 'business', 'commercial', 'product'],
+            '专业服务': ['professional', 'enterprise', 'pro', 'premium', 'custom', 'api'],
+            '教育培训': ['course', 'tutorial', 'training', 'learn', 'education', 'guide'],
+            '创意设计': ['design', 'art', 'logo', 'illustration', 'creative', 'visual'],
+            '技术开发': ['code', 'js', 'html', 'json', 'website', 'database', 'developer']
+        }
+        
+        for keyword in new_keywords:
+            keyword_lower = keyword.lower()
+            
+            # 检查是否包含高价值指标
+            for category, patterns in high_value_patterns.items():
+                if any(pattern in keyword_lower for pattern in patterns):
+                    # 进一步筛选有商业价值的关键词
+                    if self._has_commercial_potential(keyword_lower):
+                        business_keywords.append(keyword)
+                        break
+        
+        return business_keywords[:6]  # 最多返回6个
+    
+    def _has_commercial_potential(self, keyword: str) -> bool:
+        """判断关键词是否具有商业潜力"""
+        
+        # 高商业价值指标
+        high_commercial_terms = [
+            'free', 'professional', 'business', 'enterprise', 'commercial', 'premium',
+            'generator', 'creator', 'maker', 'tool', 'platform', 'service',
+            'ecommerce', 'website', 'app', 'api', 'automation', 'custom'
+        ]
+        
+        # 过滤掉明显没有商业价值的词
+        low_value_terms = [
+            'meme', 'funny', 'joke', 'random', 'silly', 'weird', 'stupid', 
+            'test', 'demo', 'sample', 'example'
+        ]
+        
+        # 如果包含低价值词汇，则排除
+        if any(term in keyword for term in low_value_terms):
+            return False
+        
+        # 如果包含高商业价值词汇，则包含
+        return any(term in keyword for term in high_commercial_terms)
     
     def _build_error_message(self, main_keyword: str, error_message: str,
                            execution_stats: Dict) -> Dict:

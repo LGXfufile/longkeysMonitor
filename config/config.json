@@ -1,7 +1,32 @@
 {
   "keywords": [
     {
-      "main_keyword": "AI写作",
+      "main_keyword": "ai generate",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "how to use ai",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "how to",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "best ai",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "ai online",
+      "enabled": true,
+      "schedule": "0 12 * * *"
+    },
+    {
+      "main_keyword": "top 10",
       "enabled": true,
       "schedule": "0 12 * * *"
     },

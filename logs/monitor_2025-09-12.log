@@ -1,0 +1,279 @@
+2025-09-12 00:04:27,501 - src.config_manager - INFO - 配置文件加载成功: /Users/guangxin/Documents/myGit/claude/20250909_1/google-longtail-monitor/config/config.json
+2025-09-12 00:04:27,502 - src.data_processor - INFO - 数据处理器初始化，数据目录: /Users/guangxin/Documents/myGit/claude/20250909_1/google-longtail-monitor/data
+2025-09-12 00:04:27,502 - src.compare_analyzer - INFO - 对比分析器初始化完成
+2025-09-12 00:04:27,502 - src.feishu_notifier - INFO - 飞书通知器初始化完成
+2025-09-12 00:04:27,502 - __main__ - INFO - 关键词监控器初始化完成
+2025-09-12 00:04:27,502 - __main__ - INFO - 开始批量监控 6 个关键词
+2025-09-12 00:04:27,502 - __main__ - INFO - 开始监控关键词: ai generate
+2025-09-12 00:04:27,502 - src.anti_spider - INFO - User-Agent轮换器初始化，共 10 个UA
+2025-09-12 00:04:27,503 - src.anti_spider - INFO - 反爬虫管理器初始化完成
+2025-09-12 00:04:27,503 - src.search_executor - INFO - 搜索执行器初始化完成
+2025-09-12 00:04:27,505 - src.query_generator - INFO - 为关键词 'ai generate' 生成了 1405 个查询
+2025-09-12 00:04:27,505 - __main__ - INFO - 生成了 1405 个查询
+2025-09-12 00:04:27,505 - src.search_executor - INFO - 搜索会话开始: session_ai generate_1757606667
+2025-09-12 00:04:27,505 - src.search_executor - INFO - 会话 session_ai generate_1757606667 开始执行 1405 个查询，模式: sequential
+2025-09-12 00:04:27,505 - src.search_executor - INFO - 开始执行查询批次: session_ai generate_1757606667
+2025-09-12 00:04:28,448 - __main__ - INFO - 执行进度: 1/1405 (0.1%) - 当前查询: a ai generate
+2025-09-12 00:04:29,402 - src.search_executor - WARNING - 查询 'aa ai generate' 未获得建议
+2025-09-12 00:04:29,403 - __main__ - INFO - 执行进度: 2/1405 (0.1%) - 当前查询: aa ai generate
+2025-09-12 00:04:30,272 - __main__ - INFO - 执行进度: 3/1405 (0.2%) - 当前查询: ab ai generate
+2025-09-12 00:04:31,178 - __main__ - INFO - 执行进度: 4/1405 (0.3%) - 当前查询: ac ai generate
+2025-09-12 00:04:32,061 - __main__ - INFO - 执行进度: 5/1405 (0.4%) - 当前查询: ad ai generate
+2025-09-12 00:04:32,991 - __main__ - INFO - 执行进度: 6/1405 (0.4%) - 当前查询: ae ai generate
+2025-09-12 00:04:33,879 - __main__ - INFO - 执行进度: 7/1405 (0.5%) - 当前查询: af ai generate
+2025-09-12 00:04:34,784 - __main__ - INFO - 执行进度: 8/1405 (0.6%) - 当前查询: ag ai generate
+2025-09-12 00:04:35,690 - src.search_executor - WARNING - 查询 'ah ai generate' 未获得建议
+2025-09-12 00:04:35,690 - __main__ - INFO - 执行进度: 9/1405 (0.6%) - 当前查询: ah ai generate
+2025-09-12 00:04:36,625 - __main__ - INFO - 执行进度: 10/1405 (0.7%) - 当前查询: ai ai generate
+2025-09-12 00:04:37,504 - __main__ - INFO - 执行进度: 11/1405 (0.8%) - 当前查询: ai generate
+2025-09-12 00:04:38,318 - __main__ - INFO - 执行进度: 12/1405 (0.9%) - 当前查询: ai generate a
+2025-09-12 00:04:39,185 - __main__ - INFO - 执行进度: 13/1405 (0.9%) - 当前查询: ai generate aa
+2025-09-12 00:04:40,081 - __main__ - INFO - 执行进度: 14/1405 (1.0%) - 当前查询: ai generate ab
+2025-09-12 00:04:40,952 - __main__ - INFO - 执行进度: 15/1405 (1.1%) - 当前查询: ai generate ac
+2025-09-12 00:04:41,807 - __main__ - INFO - 执行进度: 16/1405 (1.1%) - 当前查询: ai generate ad
+2025-09-12 00:04:42,711 - __main__ - INFO - 执行进度: 17/1405 (1.2%) - 当前查询: ai generate ae
+2025-09-12 00:04:43,585 - __main__ - INFO - 执行进度: 18/1405 (1.3%) - 当前查询: ai generate af
+2025-09-12 00:04:44,443 - __main__ - INFO - 执行进度: 19/1405 (1.4%) - 当前查询: ai generate ag
+2025-09-12 00:04:44,869 - src.search_executor - WARNING - 查询 'ai generate ah' 未获得建议
+2025-09-12 00:04:45,322 - __main__ - INFO - 执行进度: 20/1405 (1.4%) - 当前查询: ai generate ah
+2025-09-12 00:04:46,190 - __main__ - INFO - 执行进度: 21/1405 (1.5%) - 当前查询: ai generate ai
+2025-09-12 00:04:47,046 - __main__ - INFO - 执行进度: 22/1405 (1.6%) - 当前查询: ai generate aj
+2025-09-12 00:04:47,953 - __main__ - INFO - 执行进度: 23/1405 (1.6%) - 当前查询: ai generate ak
+2025-09-12 00:04:48,817 - __main__ - INFO - 执行进度: 24/1405 (1.7%) - 当前查询: ai generate al
+2025-09-12 00:04:49,235 - src.search_executor - WARNING - 查询 'ai generate am' 未获得建议
+2025-09-12 00:04:49,682 - __main__ - INFO - 执行进度: 25/1405 (1.8%) - 当前查询: ai generate am
+2025-09-12 00:04:50,579 - __main__ - INFO - 执行进度: 26/1405 (1.9%) - 当前查询: ai generate an
+2025-09-12 00:04:51,480 - __main__ - INFO - 执行进度: 27/1405 (1.9%) - 当前查询: ai generate ao
+2025-09-12 00:04:52,441 - __main__ - INFO - 执行进度: 28/1405 (2.0%) - 当前查询: ai generate ap
+2025-09-12 00:04:53,423 - __main__ - INFO - 执行进度: 29/1405 (2.1%) - 当前查询: ai generate aq
+2025-09-12 00:04:54,278 - __main__ - INFO - 执行进度: 30/1405 (2.1%) - 当前查询: ai generate ar
+2025-09-12 00:04:55,217 - __main__ - INFO - 执行进度: 31/1405 (2.2%) - 当前查询: ai generate as
+2025-09-12 00:04:56,070 - __main__ - INFO - 执行进度: 32/1405 (2.3%) - 当前查询: ai generate at
+2025-09-12 00:04:56,949 - __main__ - INFO - 执行进度: 33/1405 (2.3%) - 当前查询: ai generate au
+2025-09-12 00:04:57,829 - __main__ - INFO - 执行进度: 34/1405 (2.4%) - 当前查询: ai generate av
+2025-09-12 00:04:58,725 - __main__ - INFO - 执行进度: 35/1405 (2.5%) - 当前查询: ai generate aw
+2025-09-12 00:04:59,676 - __main__ - INFO - 执行进度: 36/1405 (2.6%) - 当前查询: ai generate ax
+2025-09-12 00:05:00,627 - __main__ - INFO - 执行进度: 37/1405 (2.6%) - 当前查询: ai generate ay
+2025-09-12 00:05:01,500 - __main__ - INFO - 执行进度: 38/1405 (2.7%) - 当前查询: ai generate az
+2025-09-12 00:05:02,336 - __main__ - INFO - 执行进度: 39/1405 (2.8%) - 当前查询: ai generate b
+2025-09-12 00:05:03,210 - __main__ - INFO - 执行进度: 40/1405 (2.8%) - 当前查询: ai generate ba
+2025-09-12 00:05:03,647 - src.search_executor - WARNING - 查询 'ai generate bb' 未获得建议
+2025-09-12 00:05:04,095 - __main__ - INFO - 执行进度: 41/1405 (2.9%) - 当前查询: ai generate bb
+2025-09-12 00:05:04,982 - src.search_executor - WARNING - 查询 'ai generate bc' 未获得建议
+2025-09-12 00:05:04,982 - __main__ - INFO - 执行进度: 42/1405 (3.0%) - 当前查询: ai generate bc
+2025-09-12 00:05:05,418 - src.search_executor - WARNING - 查询 'ai generate bd' 未获得建议
+2025-09-12 00:05:05,844 - src.search_executor - WARNING - 查询 'ai generate bd' 未获得建议
+2025-09-12 00:05:05,844 - src.search_executor - WARNING - 查询失败: ai generate bd
+2025-09-12 00:05:05,844 - __main__ - INFO - 执行进度: 43/1405 (3.1%) - 当前查询: ai generate bd
+2025-09-12 00:05:06,716 - __main__ - INFO - 执行进度: 44/1405 (3.1%) - 当前查询: ai generate be
+2025-09-12 00:05:07,581 - __main__ - INFO - 执行进度: 45/1405 (3.2%) - 当前查询: ai generate bf
+2025-09-12 00:05:08,427 - __main__ - INFO - 执行进度: 46/1405 (3.3%) - 当前查询: ai generate bg
+2025-09-12 00:05:09,306 - __main__ - INFO - 执行进度: 47/1405 (3.3%) - 当前查询: ai generate bh
+2025-09-12 00:05:10,196 - __main__ - INFO - 执行进度: 48/1405 (3.4%) - 当前查询: ai generate bi
+2025-09-12 00:05:11,706 - src.search_executor - WARNING - 查询 'ai generate bj' 未获得建议
+2025-09-12 00:05:12,121 - src.search_executor - WARNING - 查询 'ai generate bj' 未获得建议
+2025-09-12 00:05:12,122 - src.search_executor - WARNING - 查询失败: ai generate bj
+2025-09-12 00:05:12,122 - __main__ - INFO - 执行进度: 49/1405 (3.5%) - 当前查询: ai generate bj
+2025-09-12 00:05:13,075 - src.search_executor - WARNING - 查询 'ai generate bk' 未获得建议
+2025-09-12 00:05:13,075 - __main__ - INFO - 执行进度: 50/1405 (3.6%) - 当前查询: ai generate bk
+2025-09-12 00:05:13,927 - __main__ - INFO - 执行进度: 51/1405 (3.6%) - 当前查询: ai generate bl
+2025-09-12 00:05:14,794 - __main__ - INFO - 执行进度: 52/1405 (3.7%) - 当前查询: ai generate bm
+2025-09-12 00:05:15,624 - src.search_executor - WARNING - 查询 'ai generate bn' 未获得建议
+2025-09-12 00:05:15,625 - __main__ - INFO - 执行进度: 53/1405 (3.8%) - 当前查询: ai generate bn
+2025-09-12 00:05:16,477 - __main__ - INFO - 执行进度: 54/1405 (3.8%) - 当前查询: ai generate bo
+2025-09-12 00:05:17,623 - __main__ - INFO - 执行进度: 55/1405 (3.9%) - 当前查询: ai generate bp
+2025-09-12 00:05:18,522 - src.search_executor - WARNING - 查询 'ai generate bq' 未获得建议
+2025-09-12 00:05:18,523 - __main__ - INFO - 执行进度: 56/1405 (4.0%) - 当前查询: ai generate bq
+2025-09-12 00:05:19,492 - __main__ - INFO - 执行进度: 57/1405 (4.1%) - 当前查询: ai generate br
+2025-09-12 00:05:19,915 - src.search_executor - WARNING - 查询 'ai generate bs' 未获得建议
+2025-09-12 00:05:20,414 - __main__ - INFO - 执行进度: 58/1405 (4.1%) - 当前查询: ai generate bs
+2025-09-12 00:05:21,306 - __main__ - INFO - 执行进度: 59/1405 (4.2%) - 当前查询: ai generate bt
+2025-09-12 00:05:22,167 - __main__ - INFO - 执行进度: 60/1405 (4.3%) - 当前查询: ai generate bu
+2025-09-12 00:05:23,133 - src.search_executor - WARNING - 查询 'ai generate bv' 未获得建议
+2025-09-12 00:05:23,133 - __main__ - INFO - 执行进度: 61/1405 (4.3%) - 当前查询: ai generate bv
+2025-09-12 00:05:23,585 - src.search_executor - WARNING - 查询 'ai generate bw' 未获得建议
+2025-09-12 00:05:24,016 - src.search_executor - WARNING - 查询 'ai generate bw' 未获得建议
+2025-09-12 00:05:24,017 - src.search_executor - WARNING - 查询失败: ai generate bw
+2025-09-12 00:05:24,017 - __main__ - INFO - 执行进度: 62/1405 (4.4%) - 当前查询: ai generate bw
+2025-09-12 00:05:25,538 - __main__ - INFO - 执行进度: 63/1405 (4.5%) - 当前查询: ai generate bx
+2025-09-12 00:05:26,461 - __main__ - INFO - 执行进度: 64/1405 (4.6%) - 当前查询: ai generate by
+2025-09-12 00:05:26,881 - src.search_executor - WARNING - 查询 'ai generate bz' 未获得建议
+2025-09-12 00:05:27,312 - __main__ - INFO - 执行进度: 65/1405 (4.6%) - 当前查询: ai generate bz
+2025-09-12 00:05:28,162 - __main__ - INFO - 执行进度: 66/1405 (4.7%) - 当前查询: ai generate c
+2025-09-12 00:05:28,994 - __main__ - INFO - 执行进度: 67/1405 (4.8%) - 当前查询: ai generate ca
+2025-09-12 00:05:29,881 - __main__ - INFO - 执行进度: 68/1405 (4.8%) - 当前查询: ai generate cb
+2025-09-12 00:05:30,923 - __main__ - INFO - 执行进度: 69/1405 (4.9%) - 当前查询: ai generate cc
+2025-09-12 00:05:31,877 - __main__ - INFO - 执行进度: 70/1405 (5.0%) - 当前查询: ai generate cd
+2025-09-12 00:05:32,290 - src.search_executor - WARNING - 查询 'ai generate ce' 未获得建议
+2025-09-12 00:05:32,758 - __main__ - INFO - 执行进度: 71/1405 (5.1%) - 当前查询: ai generate ce
+2025-09-12 00:05:33,245 - src.search_executor - WARNING - 查询 'ai generate cf' 未获得建议
+2025-09-12 00:05:33,665 - src.search_executor - WARNING - 查询 'ai generate cf' 未获得建议
+2025-09-12 00:05:33,665 - src.search_executor - WARNING - 查询失败: ai generate cf
+2025-09-12 00:05:33,665 - __main__ - INFO - 执行进度: 72/1405 (5.1%) - 当前查询: ai generate cf
+2025-09-12 00:05:34,604 - __main__ - INFO - 执行进度: 73/1405 (5.2%) - 当前查询: ai generate cg
+2025-09-12 00:05:35,479 - __main__ - INFO - 执行进度: 74/1405 (5.3%) - 当前查询: ai generate ch
+2025-09-12 00:05:36,449 - __main__ - INFO - 执行进度: 75/1405 (5.3%) - 当前查询: ai generate ci
+2025-09-12 00:05:37,720 - __main__ - INFO - 执行进度: 76/1405 (5.4%) - 当前查询: ai generate cj
+2025-09-12 00:05:38,592 - __main__ - INFO - 执行进度: 77/1405 (5.5%) - 当前查询: ai generate ck
+2025-09-12 00:05:39,632 - __main__ - INFO - 执行进度: 78/1405 (5.6%) - 当前查询: ai generate cl
+2025-09-12 00:05:40,542 - __main__ - INFO - 执行进度: 79/1405 (5.6%) - 当前查询: ai generate cm
+2025-09-12 00:05:41,465 - __main__ - INFO - 执行进度: 80/1405 (5.7%) - 当前查询: ai generate cn
+2025-09-12 00:05:42,274 - __main__ - INFO - 执行进度: 81/1405 (5.8%) - 当前查询: ai generate co
+2025-09-12 00:05:43,140 - __main__ - INFO - 执行进度: 82/1405 (5.8%) - 当前查询: ai generate cp
+2025-09-12 00:05:44,002 - src.search_executor - WARNING - 查询 'ai generate cq' 未获得建议
+2025-09-12 00:05:44,002 - __main__ - INFO - 执行进度: 83/1405 (5.9%) - 当前查询: ai generate cq
+2025-09-12 00:05:44,855 - __main__ - INFO - 执行进度: 84/1405 (6.0%) - 当前查询: ai generate cr
+2025-09-12 00:05:45,354 - src.search_executor - WARNING - 查询 'ai generate cs' 未获得建议
+2025-09-12 00:05:45,810 - __main__ - INFO - 执行进度: 85/1405 (6.0%) - 当前查询: ai generate cs
+2025-09-12 00:05:46,689 - __main__ - INFO - 执行进度: 86/1405 (6.1%) - 当前查询: ai generate ct
+2025-09-12 00:05:47,559 - src.search_executor - WARNING - 查询 'ai generate cu' 未获得建议
+2025-09-12 00:05:47,560 - __main__ - INFO - 执行进度: 87/1405 (6.2%) - 当前查询: ai generate cu
+2025-09-12 00:05:48,434 - __main__ - INFO - 执行进度: 88/1405 (6.3%) - 当前查询: ai generate cv
+2025-09-12 00:05:49,324 - __main__ - INFO - 执行进度: 89/1405 (6.3%) - 当前查询: ai generate cw
+2025-09-12 00:05:50,233 - src.search_executor - WARNING - 查询 'ai generate cx' 未获得建议
+2025-09-12 00:05:50,233 - __main__ - INFO - 执行进度: 90/1405 (6.4%) - 当前查询: ai generate cx
+2025-09-12 00:05:50,652 - src.search_executor - WARNING - 查询 'ai generate cy' 未获得建议
+2025-09-12 00:05:51,085 - __main__ - INFO - 执行进度: 91/1405 (6.5%) - 当前查询: ai generate cy
+2025-09-12 00:05:52,289 - __main__ - INFO - 执行进度: 92/1405 (6.5%) - 当前查询: ai generate cz
+2025-09-12 00:05:53,634 - __main__ - INFO - 执行进度: 93/1405 (6.6%) - 当前查询: ai generate d
+2025-09-12 00:05:54,888 - __main__ - INFO - 执行进度: 94/1405 (6.7%) - 当前查询: ai generate da
+2025-09-12 00:05:56,006 - __main__ - INFO - 执行进度: 95/1405 (6.8%) - 当前查询: ai generate db
+2025-09-12 00:05:56,964 - __main__ - INFO - 执行进度: 96/1405 (6.8%) - 当前查询: ai generate dc
+2025-09-12 00:05:57,810 - __main__ - INFO - 执行进度: 97/1405 (6.9%) - 当前查询: ai generate dd
+2025-09-12 00:05:58,633 - __main__ - INFO - 执行进度: 98/1405 (7.0%) - 当前查询: ai generate de
+2025-09-12 00:05:59,535 - __main__ - INFO - 执行进度: 99/1405 (7.0%) - 当前查询: ai generate df
+2025-09-12 00:06:00,521 - __main__ - INFO - 执行进度: 100/1405 (7.1%) - 当前查询: ai generate dg
+2025-09-12 00:06:01,415 - __main__ - INFO - 执行进度: 101/1405 (7.2%) - 当前查询: ai generate dh
+2025-09-12 00:06:02,455 - __main__ - INFO - 执行进度: 102/1405 (7.3%) - 当前查询: ai generate di
+2025-09-12 00:06:03,346 - __main__ - INFO - 执行进度: 103/1405 (7.3%) - 当前查询: ai generate dj
+2025-09-12 00:06:04,203 - src.search_executor - WARNING - 查询 'ai generate dk' 未获得建议
+2025-09-12 00:06:04,203 - __main__ - INFO - 执行进度: 104/1405 (7.4%) - 当前查询: ai generate dk
+2025-09-12 00:06:04,628 - src.search_executor - WARNING - 查询 'ai generate dl' 未获得建议
+2025-09-12 00:06:05,076 - __main__ - INFO - 执行进度: 105/1405 (7.5%) - 当前查询: ai generate dl
+2025-09-12 00:06:05,915 - __main__ - INFO - 执行进度: 106/1405 (7.5%) - 当前查询: ai generate dm
+2025-09-12 00:06:06,778 - __main__ - INFO - 执行进度: 107/1405 (7.6%) - 当前查询: ai generate dn
+2025-09-12 00:06:07,665 - __main__ - INFO - 执行进度: 108/1405 (7.7%) - 当前查询: ai generate do
+2025-09-12 00:06:08,563 - __main__ - INFO - 执行进度: 109/1405 (7.8%) - 当前查询: ai generate dp
+2025-09-12 00:06:09,468 - src.search_executor - WARNING - 查询 'ai generate dq' 未获得建议
+2025-09-12 00:06:09,468 - __main__ - INFO - 执行进度: 110/1405 (7.8%) - 当前查询: ai generate dq
+2025-09-12 00:06:11,486 - __main__ - INFO - 执行进度: 111/1405 (7.9%) - 当前查询: ai generate dr
+2025-09-12 00:06:12,371 - __main__ - INFO - 执行进度: 112/1405 (8.0%) - 当前查询: ai generate ds
+2025-09-12 00:06:13,297 - __main__ - INFO - 执行进度: 113/1405 (8.0%) - 当前查询: ai generate dt
+2025-09-12 00:06:13,726 - src.search_executor - WARNING - 查询 'ai generate du' 未获得建议
+2025-09-12 00:06:14,155 - __main__ - INFO - 执行进度: 114/1405 (8.1%) - 当前查询: ai generate du
+2025-09-12 00:06:15,377 - __main__ - INFO - 执行进度: 115/1405 (8.2%) - 当前查询: ai generate dv
+2025-09-12 00:06:15,858 - src.search_executor - WARNING - 查询 'ai generate dw' 未获得建议
+2025-09-12 00:06:16,300 - __main__ - INFO - 执行进度: 116/1405 (8.3%) - 当前查询: ai generate dw
+2025-09-12 00:06:17,140 - __main__ - INFO - 执行进度: 117/1405 (8.3%) - 当前查询: ai generate dx
+2025-09-12 00:06:18,040 - __main__ - INFO - 执行进度: 118/1405 (8.4%) - 当前查询: ai generate dy
+2025-09-12 00:06:18,918 - __main__ - INFO - 执行进度: 119/1405 (8.5%) - 当前查询: ai generate dz
+2025-09-12 00:06:19,757 - __main__ - INFO - 执行进度: 120/1405 (8.5%) - 当前查询: ai generate e
+2025-09-12 00:06:20,995 - __main__ - INFO - 执行进度: 121/1405 (8.6%) - 当前查询: ai generate ea
+2025-09-12 00:06:21,841 - __main__ - INFO - 执行进度: 122/1405 (8.7%) - 当前查询: ai generate eb
+2025-09-12 00:06:23,083 - __main__ - INFO - 执行进度: 123/1405 (8.8%) - 当前查询: ai generate ec
+2025-09-12 00:06:23,950 - __main__ - INFO - 执行进度: 124/1405 (8.8%) - 当前查询: ai generate ed
+2025-09-12 00:06:24,851 - __main__ - INFO - 执行进度: 125/1405 (8.9%) - 当前查询: ai generate ee
+2025-09-12 00:06:25,730 - __main__ - INFO - 执行进度: 126/1405 (9.0%) - 当前查询: ai generate ef
+2025-09-12 00:06:26,627 - __main__ - INFO - 执行进度: 127/1405 (9.0%) - 当前查询: ai generate eg
+2025-09-12 00:06:27,057 - src.search_executor - WARNING - 查询 'ai generate eh' 未获得建议
+2025-09-12 00:06:27,544 - src.search_executor - WARNING - 查询 'ai generate eh' 未获得建议
+2025-09-12 00:06:27,544 - src.search_executor - WARNING - 查询失败: ai generate eh
+2025-09-12 00:06:27,544 - __main__ - INFO - 执行进度: 128/1405 (9.1%) - 当前查询: ai generate eh
+2025-09-12 00:06:28,459 - __main__ - INFO - 执行进度: 129/1405 (9.2%) - 当前查询: ai generate ei
+2025-09-12 00:06:29,346 - src.search_executor - WARNING - 查询 'ai generate ej' 未获得建议
+2025-09-12 00:06:29,346 - __main__ - INFO - 执行进度: 130/1405 (9.3%) - 当前查询: ai generate ej
+2025-09-12 00:06:30,203 - __main__ - INFO - 执行进度: 131/1405 (9.3%) - 当前查询: ai generate ek
+2025-09-12 00:06:31,114 - __main__ - INFO - 执行进度: 132/1405 (9.4%) - 当前查询: ai generate el
+2025-09-12 00:06:31,981 - __main__ - INFO - 执行进度: 133/1405 (9.5%) - 当前查询: ai generate em
+2025-09-12 00:06:32,850 - __main__ - INFO - 执行进度: 134/1405 (9.5%) - 当前查询: ai generate en
+2025-09-12 00:06:33,789 - __main__ - INFO - 执行进度: 135/1405 (9.6%) - 当前查询: ai generate eo
+2025-09-12 00:06:34,230 - src.search_executor - WARNING - 查询 'ai generate ep' 未获得建议
+2025-09-12 00:06:34,682 - __main__ - INFO - 执行进度: 136/1405 (9.7%) - 当前查询: ai generate ep
+2025-09-12 00:06:35,549 - __main__ - INFO - 执行进度: 137/1405 (9.8%) - 当前查询: ai generate eq
+2025-09-12 00:06:36,464 - __main__ - INFO - 执行进度: 138/1405 (9.8%) - 当前查询: ai generate er
+2025-09-12 00:06:37,302 - __main__ - INFO - 执行进度: 139/1405 (9.9%) - 当前查询: ai generate es
+2025-09-12 00:06:38,199 - __main__ - INFO - 执行进度: 140/1405 (10.0%) - 当前查询: ai generate et
+2025-09-12 00:06:39,045 - __main__ - INFO - 执行进度: 141/1405 (10.0%) - 当前查询: ai generate eu
+2025-09-12 00:06:40,794 - __main__ - INFO - 执行进度: 142/1405 (10.1%) - 当前查询: ai generate ev
+2025-09-12 00:06:41,652 - __main__ - INFO - 执行进度: 143/1405 (10.2%) - 当前查询: ai generate ew
+2025-09-12 00:06:42,517 - __main__ - INFO - 执行进度: 144/1405 (10.2%) - 当前查询: ai generate ex
+2025-09-12 00:06:43,413 - __main__ - INFO - 执行进度: 145/1405 (10.3%) - 当前查询: ai generate ey
+2025-09-12 00:06:44,262 - __main__ - INFO - 执行进度: 146/1405 (10.4%) - 当前查询: ai generate ez
+2025-09-12 00:06:45,118 - __main__ - INFO - 执行进度: 147/1405 (10.5%) - 当前查询: ai generate f
+2025-09-12 00:06:45,967 - __main__ - INFO - 执行进度: 148/1405 (10.5%) - 当前查询: ai generate fa
+2025-09-12 00:06:46,828 - __main__ - INFO - 执行进度: 149/1405 (10.6%) - 当前查询: ai generate fb
+2025-09-12 00:06:47,689 - __main__ - INFO - 执行进度: 150/1405 (10.7%) - 当前查询: ai generate fc
+2025-09-12 00:06:48,561 - __main__ - INFO - 执行进度: 151/1405 (10.7%) - 当前查询: ai generate fd
+2025-09-12 00:06:49,464 - __main__ - INFO - 执行进度: 152/1405 (10.8%) - 当前查询: ai generate fe
+2025-09-12 00:06:50,550 - __main__ - INFO - 执行进度: 153/1405 (10.9%) - 当前查询: ai generate ff
+2025-09-12 00:06:51,507 - __main__ - INFO - 执行进度: 154/1405 (11.0%) - 当前查询: ai generate fg
+2025-09-12 00:06:52,346 - __main__ - INFO - 执行进度: 155/1405 (11.0%) - 当前查询: ai generate fh
+2025-09-12 00:06:53,187 - __main__ - INFO - 执行进度: 156/1405 (11.1%) - 当前查询: ai generate fi
+2025-09-12 00:06:54,249 - __main__ - INFO - 执行进度: 157/1405 (11.2%) - 当前查询: ai generate fj
+2025-09-12 00:06:55,087 - __main__ - INFO - 执行进度: 158/1405 (11.2%) - 当前查询: ai generate fk
+2025-09-12 00:06:55,997 - __main__ - INFO - 执行进度: 159/1405 (11.3%) - 当前查询: ai generate fl
+2025-09-12 00:06:56,876 - __main__ - INFO - 执行进度: 160/1405 (11.4%) - 当前查询: ai generate fm
+2025-09-12 00:06:57,306 - src.search_executor - WARNING - 查询 'ai generate fn' 未获得建议
+2025-09-12 00:06:57,731 - __main__ - INFO - 执行进度: 161/1405 (11.5%) - 当前查询: ai generate fn
+2025-09-12 00:06:58,564 - __main__ - INFO - 执行进度: 162/1405 (11.5%) - 当前查询: ai generate fo
+2025-09-12 00:06:59,495 - __main__ - INFO - 执行进度: 163/1405 (11.6%) - 当前查询: ai generate fp
+2025-09-12 00:07:00,411 - __main__ - INFO - 执行进度: 164/1405 (11.7%) - 当前查询: ai generate fq
+2025-09-12 00:07:01,345 - __main__ - INFO - 执行进度: 165/1405 (11.7%) - 当前查询: ai generate fr
+2025-09-12 00:07:02,223 - __main__ - INFO - 执行进度: 166/1405 (11.8%) - 当前查询: ai generate fs
+2025-09-12 00:07:03,081 - __main__ - INFO - 执行进度: 167/1405 (11.9%) - 当前查询: ai generate ft
+2025-09-12 00:07:03,985 - __main__ - INFO - 执行进度: 168/1405 (12.0%) - 当前查询: ai generate fu
+2025-09-12 00:07:04,896 - __main__ - INFO - 执行进度: 169/1405 (12.0%) - 当前查询: ai generate fv
+2025-09-12 00:07:05,426 - src.search_executor - WARNING - 查询 'ai generate fw' 未获得建议
+2025-09-12 00:07:06,206 - __main__ - INFO - 执行进度: 170/1405 (12.1%) - 当前查询: ai generate fw
+2025-09-12 00:07:07,103 - __main__ - INFO - 执行进度: 171/1405 (12.2%) - 当前查询: ai generate fx
+2025-09-12 00:07:07,992 - __main__ - INFO - 执行进度: 172/1405 (12.2%) - 当前查询: ai generate fy
+2025-09-12 00:07:08,861 - __main__ - INFO - 执行进度: 173/1405 (12.3%) - 当前查询: ai generate fz
+2025-09-12 00:07:09,939 - __main__ - INFO - 执行进度: 174/1405 (12.4%) - 当前查询: ai generate g
+2025-09-12 00:07:10,849 - __main__ - INFO - 执行进度: 175/1405 (12.5%) - 当前查询: ai generate ga
+2025-09-12 00:07:12,019 - __main__ - INFO - 执行进度: 176/1405 (12.5%) - 当前查询: ai generate gb
+2025-09-12 00:07:12,920 - __main__ - INFO - 执行进度: 177/1405 (12.6%) - 当前查询: ai generate gc
+2025-09-12 00:07:13,791 - __main__ - INFO - 执行进度: 178/1405 (12.7%) - 当前查询: ai generate gd
+2025-09-12 00:07:14,657 - __main__ - INFO - 执行进度: 179/1405 (12.7%) - 当前查询: ai generate ge
+2025-09-12 00:07:15,516 - __main__ - INFO - 执行进度: 180/1405 (12.8%) - 当前查询: ai generate gf
+2025-09-12 00:07:16,409 - __main__ - INFO - 执行进度: 181/1405 (12.9%) - 当前查询: ai generate gg
+2025-09-12 00:07:17,307 - __main__ - INFO - 执行进度: 182/1405 (13.0%) - 当前查询: ai generate gh
+2025-09-12 00:07:18,156 - __main__ - INFO - 执行进度: 183/1405 (13.0%) - 当前查询: ai generate gi
+2025-09-12 00:07:19,024 - __main__ - INFO - 执行进度: 184/1405 (13.1%) - 当前查询: ai generate gj
+2025-09-12 00:07:20,263 - src.search_executor - WARNING - 查询 'ai generate gk' 未获得建议
+2025-09-12 00:07:20,263 - __main__ - INFO - 执行进度: 185/1405 (13.2%) - 当前查询: ai generate gk
+2025-09-12 00:07:21,128 - __main__ - INFO - 执行进度: 186/1405 (13.2%) - 当前查询: ai generate gl
+2025-09-12 00:07:21,563 - src.search_executor - WARNING - 查询 'ai generate gm' 未获得建议
+2025-09-12 00:07:22,045 - __main__ - INFO - 执行进度: 187/1405 (13.3%) - 当前查询: ai generate gm
+2025-09-12 00:07:22,959 - __main__ - INFO - 执行进度: 188/1405 (13.4%) - 当前查询: ai generate gn
+2025-09-12 00:07:23,805 - __main__ - INFO - 执行进度: 189/1405 (13.5%) - 当前查询: ai generate go
+2025-09-12 00:07:24,986 - __main__ - INFO - 执行进度: 190/1405 (13.5%) - 当前查询: ai generate gp
+2025-09-12 00:07:25,861 - src.search_executor - WARNING - 查询 'ai generate gq' 未获得建议
+2025-09-12 00:07:25,862 - __main__ - INFO - 执行进度: 191/1405 (13.6%) - 当前查询: ai generate gq
+2025-09-12 00:07:26,976 - __main__ - INFO - 执行进度: 192/1405 (13.7%) - 当前查询: ai generate gr
+2025-09-12 00:07:27,418 - src.search_executor - WARNING - 查询 'ai generate gs' 未获得建议
+2025-09-12 00:07:27,896 - __main__ - INFO - 执行进度: 193/1405 (13.7%) - 当前查询: ai generate gs
+2025-09-12 00:07:28,917 - __main__ - INFO - 执行进度: 194/1405 (13.8%) - 当前查询: ai generate gt
+2025-09-12 00:07:29,815 - __main__ - INFO - 执行进度: 195/1405 (13.9%) - 当前查询: ai generate gu
+2025-09-12 00:07:30,648 - __main__ - INFO - 执行进度: 196/1405 (14.0%) - 当前查询: ai generate gv
+2025-09-12 00:07:31,104 - src.search_executor - WARNING - 查询 'ai generate gw' 未获得建议
+2025-09-12 00:07:31,546 - __main__ - INFO - 执行进度: 197/1405 (14.0%) - 当前查询: ai generate gw
+2025-09-12 00:07:32,502 - __main__ - INFO - 执行进度: 198/1405 (14.1%) - 当前查询: ai generate gx
+2025-09-12 00:07:32,905 - src.search_executor - WARNING - 查询 'ai generate gy' 未获得建议
+2025-09-12 00:07:33,398 - __main__ - INFO - 执行进度: 199/1405 (14.2%) - 当前查询: ai generate gy
+2025-09-12 00:07:34,302 - src.search_executor - WARNING - 查询 'ai generate gz' 未获得建议
+2025-09-12 00:07:34,302 - __main__ - INFO - 执行进度: 200/1405 (14.2%) - 当前查询: ai generate gz
+2025-09-12 00:07:35,174 - __main__ - INFO - 执行进度: 201/1405 (14.3%) - 当前查询: ai generate h
+2025-09-12 00:07:36,036 - __main__ - INFO - 执行进度: 202/1405 (14.4%) - 当前查询: ai generate ha
+2025-09-12 00:07:36,931 - __main__ - INFO - 执行进度: 203/1405 (14.4%) - 当前查询: ai generate hb
+2025-09-12 00:07:37,834 - src.search_executor - WARNING - 查询 'ai generate hc' 未获得建议
+2025-09-12 00:07:37,835 - __main__ - INFO - 执行进度: 204/1405 (14.5%) - 当前查询: ai generate hc
+2025-09-12 00:07:38,721 - __main__ - INFO - 执行进度: 205/1405 (14.6%) - 当前查询: ai generate hd
+2025-09-12 00:07:39,636 - __main__ - INFO - 执行进度: 206/1405 (14.7%) - 当前查询: ai generate he
+2025-09-12 00:07:40,565 - src.search_executor - WARNING - 查询 'ai generate hf' 未获得建议
+2025-09-12 00:07:40,565 - __main__ - INFO - 执行进度: 207/1405 (14.7%) - 当前查询: ai generate hf
+2025-09-12 00:07:41,439 - src.search_executor - WARNING - 查询 'ai generate hg' 未获得建议
+2025-09-12 00:07:41,440 - __main__ - INFO - 执行进度: 208/1405 (14.8%) - 当前查询: ai generate hg
+2025-09-12 00:07:42,331 - src.search_executor - WARNING - 查询 'ai generate hh' 未获得建议
+2025-09-12 00:07:42,331 - __main__ - INFO - 执行进度: 209/1405 (14.9%) - 当前查询: ai generate hh
+2025-09-12 00:07:43,176 - __main__ - INFO - 执行进度: 210/1405 (14.9%) - 当前查询: ai generate hi
+2025-09-12 00:07:44,036 - __main__ - INFO - 执行进度: 211/1405 (15.0%) - 当前查询: ai generate hj
