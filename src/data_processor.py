@@ -377,12 +377,20 @@ class DataProcessor:
         
         # 计算执行时长
         execution_duration = "00:00:00"
-        if execution_stats and "duration_seconds" in execution_stats:
-            seconds = int(execution_stats["duration_seconds"])
-            hours = seconds // 3600
-            minutes = (seconds % 3600) // 60
-            seconds = seconds % 60
-            execution_duration = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+        if execution_stats:
+            # 首先检查顶级的 duration_seconds
+            duration_seconds = execution_stats.get("duration_seconds")
+            if duration_seconds is None:
+                # 如果没有，检查嵌套的 execution_stats
+                nested_stats = execution_stats.get("execution_stats", {})
+                duration_seconds = nested_stats.get("duration_seconds")
+            
+            if duration_seconds is not None:
+                seconds = int(duration_seconds)
+                hours = seconds // 3600
+                minutes = (seconds % 3600) // 60
+                seconds = seconds % 60
+                execution_duration = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
         
         keyword_data = KeywordData(
             main_keyword=main_keyword,

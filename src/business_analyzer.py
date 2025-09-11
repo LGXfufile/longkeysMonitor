@@ -59,24 +59,38 @@ class BusinessAnalyzer:
         """初始化分析器"""
         self.logger = logging.getLogger(__name__)
         
-        # 分类关键词字典
+        # 分类关键词字典 - 大幅扩充和优化
         self.category_keywords = {
-            '电商/商业': ['ecommerce', 'shop', 'store', 'business', 'sale', 'sell', 'buy', 'product', 'brand', 'marketing'],
-            '视频制作': ['video', 'youtube', 'tiktok', 'shorts', 'movie', 'film', 'animation', 'vlog', 'livestream'],
-            '编程开发': ['code', 'programming', 'developer', 'js', 'html', 'css', 'json', 'api', 'database', 'software'],
-            '演示文稿': ['ppt', 'presentation', 'slide', 'powerpoint', 'pitch', 'deck', 'meeting'],
-            '数据分析': ['excel', 'data', 'report', 'analytics', 'chart', 'graph', 'dashboard', 'statistics'],
-            '设计创意': ['design', 'art', 'logo', 'illustration', 'ui', 'ux', 'graphic', 'creative', 'visual'],
-            '音频制作': ['voice', 'speech', 'audio', 'song', 'music', 'sound', 'podcast', 'narration'],
-            '图像生成': ['photo', 'image', 'picture', 'avatar', 'headshot', 'portrait', 'visual', 'graphic'],
-            '教育培训': ['course', 'tutorial', 'learn', 'education', 'training', 'teach', 'lesson', 'study'],
-            '社交媒体': ['social', 'instagram', 'facebook', 'twitter', 'linkedin', 'post', 'content'],
-            '办公自动化': ['office', 'productivity', 'workflow', 'automation', 'document', 'template'],
-            '娱乐游戏': ['game', 'entertainment', 'fun', 'anime', 'character', 'story', 'fiction'],
-            '健康医疗': ['health', 'medical', 'fitness', 'wellness', 'therapy', 'diet', 'mental'],
-            '金融科技': ['finance', 'money', 'payment', 'crypto', 'investment', 'trading', 'bank'],
-            '房地产': ['real estate', 'property', 'house', 'room', 'interior', 'architecture', 'home'],
-            '免费工具': ['free', 'no cost', 'gratis', 'complimentary', 'zero cost'],
+            '视频制作': ['video', 'youtube', 'tiktok', 'shorts', 'movie', 'film', 'animation', 'vlog', 'livestream', 'streaming', 'clip', 'montage', 'editing', 'trailer'],
+            '图像生成': ['photo', 'image', 'picture', 'avatar', 'headshot', 'portrait', 'visual', 'graphic', 'illustration', 'artwork', 'drawing', 'sketch', 'wallpaper'],
+            '内容创作': ['content', 'article', 'blog', 'post', 'story', 'writing', 'copywriting', 'script', 'caption', 'description', 'text', 'paragraph'],
+            '设计创意': ['design', 'art', 'logo', 'ui', 'ux', 'creative', 'banner', 'poster', 'flyer', 'card', 'layout', 'template', 'brand'],
+            'AI工具': ['ai', 'artificial intelligence', 'machine learning', 'ml', 'neural', 'smart', 'intelligent', 'automated', 'auto'],
+            '编程开发': ['code', 'programming', 'developer', 'js', 'javascript', 'html', 'css', 'json', 'api', 'database', 'software', 'app', 'development'],
+            '商业应用': ['business', 'commercial', 'enterprise', 'professional', 'corporate', 'company', 'industry', 'b2b', 'startup'],
+            '电商相关': ['ecommerce', 'shop', 'store', 'sell', 'sale', 'product', 'shopping', 'marketplace', 'retail', 'merchant'],
+            '数据分析': ['data', 'analytics', 'analysis', 'report', 'chart', 'graph', 'dashboard', 'statistics', 'metric', 'insight'],
+            '办公自动化': ['office', 'productivity', 'workflow', 'automation', 'document', 'excel', 'presentation', 'meeting', 'task'],
+            '社交媒体': ['social', 'instagram', 'facebook', 'twitter', 'linkedin', 'media', 'influencer', 'community', 'engagement'],
+            '教育培训': ['course', 'tutorial', 'learn', 'education', 'training', 'teach', 'lesson', 'study', 'skill', 'knowledge'],
+            '娱乐休闲': ['game', 'entertainment', 'fun', 'music', 'song', 'anime', 'character', 'fiction', 'hobby', 'leisure'],
+            '金融科技': ['finance', 'money', 'payment', 'crypto', 'investment', 'trading', 'bank', 'fintech', 'currency'],
+            '健康医疗': ['health', 'medical', 'fitness', 'wellness', 'therapy', 'diet', 'mental', 'healthcare', 'medicine'],
+            '房地产建筑': ['real estate', 'property', 'house', 'home', 'room', 'interior', 'architecture', 'construction', 'building'],
+            '免费服务': ['free', 'no cost', 'gratis', 'complimentary', 'zero cost', 'without payment', 'no charge'],
+            '高级服务': ['premium', 'pro', 'professional', 'enterprise', 'advanced', 'premium', 'paid', 'subscription'],
+            '技术工具': ['tool', 'generator', 'creator', 'maker', 'builder', 'converter', 'editor', 'optimizer', 'analyzer'],
+            '创意内容': ['creative', 'artistic', 'original', 'unique', 'innovative', 'imaginative', 'inspired'],
+            '自动化服务': ['auto', 'automatic', 'batch', 'bulk', 'mass', 'automated', 'process', 'workflow'],
+            '在线服务': ['online', 'web', 'internet', 'cloud', 'digital', 'virtual', 'remote'],
+            '多媒体': ['audio', 'voice', 'sound', 'music', 'speech', 'podcast', 'radio', 'multimedia'],
+            '平台服务': ['platform', 'service', 'solution', 'system', 'framework', 'infrastructure'],
+            '移动应用': ['mobile', 'app', 'smartphone', 'tablet', 'android', 'ios', 'phone'],
+            '网站相关': ['website', 'web', 'site', 'page', 'domain', 'hosting', 'blog', 'portal'],
+            'API服务': ['api', 'integration', 'webhook', 'endpoint', 'interface', 'sdk', 'library'],
+            '定制服务': ['custom', 'personalized', 'tailored', 'bespoke', 'customized', 'specific'],
+            '批量处理': ['batch', 'bulk', 'mass', 'multiple', 'many', 'several', 'numerous'],
+            '专业服务': ['professional', 'expert', 'specialist', 'consultant', 'agency', 'firm'],
         }
         
         # 竞争度评估关键词
@@ -231,7 +245,7 @@ class BusinessAnalyzer:
             'disappearance_reasons': {},
             'risk_signals': [],
             'market_shifts': {},
-            'affected_business_areas': set()
+            'affected_business_areas': []
         }
         
         for keyword in keywords:
@@ -253,15 +267,74 @@ class BusinessAnalyzer:
         return dict(analysis)
 
     def _categorize_keyword(self, keyword: str) -> str:
-        """关键词分类"""
+        """关键词智能分类 - 优化版"""
         keyword_lower = keyword.lower()
+        
+        # 记录所有匹配的分类和权重
+        category_scores = defaultdict(float)
         
         for category, indicators in self.category_keywords.items():
             for indicator in indicators:
                 if indicator in keyword_lower:
-                    return category
+                    # 计算匹配权重：完全匹配得分更高，长匹配得分更高
+                    if keyword_lower == indicator:
+                        category_scores[category] += 3.0  # 完全匹配
+                    elif keyword_lower.startswith(indicator) or keyword_lower.endswith(indicator):
+                        category_scores[category] += 2.0  # 前缀或后缀匹配
+                    else:
+                        category_scores[category] += 1.0 + len(indicator) * 0.1  # 长关键词得分更高
         
-        return '其他'
+        # 特殊规则优化：组合分类
+        if category_scores:
+            # 如果同时匹配AI工具和其他类别，优先选择更具体的类别
+            if 'AI工具' in category_scores and len(category_scores) > 1:
+                ai_score = category_scores.pop('AI工具')
+                # 给其他类别加权
+                for cat in category_scores:
+                    category_scores[cat] += ai_score * 0.5
+            
+            # 选择得分最高的分类
+            best_category = max(category_scores.items(), key=lambda x: x[1])[0]
+            return best_category
+        
+        # 如果没有匹配到任何分类，使用更智能的分析
+        return self._fallback_categorization(keyword_lower)
+    
+    def _fallback_categorization(self, keyword_lower: str) -> str:
+        """备用分类方法"""
+        
+        # 基于常见模式进行分类
+        if any(word in keyword_lower for word in ['generate', 'create', 'make', 'build']):
+            if any(word in keyword_lower for word in ['image', 'photo', 'picture']):
+                return '图像生成'
+            elif any(word in keyword_lower for word in ['video', 'clip']):
+                return '视频制作'
+            elif any(word in keyword_lower for word in ['text', 'content', 'article']):
+                return '内容创作'
+            else:
+                return '技术工具'
+        
+        # 基于动作词分类
+        if any(word in keyword_lower for word in ['edit', 'convert', 'transform', 'process']):
+            return '技术工具'
+        
+        # 基于领域词分类
+        if any(word in keyword_lower for word in ['marketing', 'seo', 'advertising']):
+            return '商业应用'
+        
+        if any(word in keyword_lower for word in ['learn', 'tutorial', 'guide']):
+            return '教育培训'
+        
+        # 基于格式词分类
+        if any(word in keyword_lower for word in ['pdf', 'excel', 'ppt', 'doc']):
+            return '办公自动化'
+        
+        # 基于平台词分类
+        if any(word in keyword_lower for word in ['youtube', 'instagram', 'tiktok']):
+            return '社交媒体'
+        
+        # 仍然无法分类的情况
+        return '通用工具'  # 改为更具体的默认分类
 
     def _evaluate_business_value(self, keyword: str) -> int:
         """评估商业价值 (1-10)"""
@@ -1360,7 +1433,14 @@ class BusinessAnalyzer:
             if any(indicator in keyword_lower for indicator in indicators):
                 skills.append(skill)
         
-        return list(set(skills))  # 去重
+        # 去重并返回列表
+        unique_skills = []
+        seen = set()
+        for skill in skills:
+            if skill not in seen:
+                seen.add(skill)
+                unique_skills.append(skill)
+        return unique_skills
     
     def _assess_infrastructure_needs(self, keyword_lower: str) -> Dict[str, any]:
         """评估基础设施需求"""

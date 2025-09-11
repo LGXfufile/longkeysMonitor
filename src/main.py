@@ -158,9 +158,13 @@ class KeywordMonitor:
             if comparison_result:
                 comparison_file = self.data_processor.save_comparison_result(comparison_result)
                 
-                # 自动执行商业价值分析
-                self.logger.info(f"检测到关键词变化，开始商业价值分析...")
-                business_report_file = self._run_business_analysis(comparison_file)
+                # 执行增强商业价值分析（集成语义漂移检测）
+                self.logger.info(f"检测到关键词变化，开始增强商业价值分析...")
+                analysis_reports = self._run_enhanced_business_analysis(comparison_file)
+                business_report_file = analysis_reports.get('html_report')
+                
+                # 智能关键词自动扩展
+                self._auto_expand_keywords(analysis_reports.get('json_report'), main_keyword)
             
             # 发送成功通知
             self.feishu_notifier.send_success_notification(
@@ -310,6 +314,74 @@ class KeywordMonitor:
             self.logger.error("数据导出失败")
         
         return export_file
+    
+    def _run_enhanced_business_analysis(self, comparison_file: str) -> Dict[str, Optional[str]]:
+        """
+        执行增强商业价值分析（集成语义漂移检测）
+        
+        Args:
+            comparison_file: 对比结果文件路径
+            
+        Returns:
+            Dict[str, Optional[str]]: 生成的报告文件路径
+        """
+        try:
+            # 导入增强分析器
+            from enhanced_business_analyzer import generate_enhanced_analysis_report
+            
+            # 执行增强分析并生成HTML报告
+            reports = generate_enhanced_analysis_report(
+                comparison_file, 
+                output_dir="reports", 
+                generate_html=True
+            )
+            
+            self.logger.info(f"增强商业分析完成: JSON={reports['json_report']}, HTML={reports['html_report']}")
+            return reports
+            
+        except ImportError as e:
+            self.logger.warning(f"增强商业分析器未找到，回退到基础分析: {e}")
+            # 回退到原有的商业分析
+            basic_report = self._run_business_analysis(comparison_file)
+            return {'json_report': None, 'html_report': basic_report}
+            
+        except Exception as e:
+            self.logger.error(f"增强商业价值分析失败: {e}")
+            return {'json_report': None, 'html_report': None}
+    
+    def _auto_expand_keywords(self, analysis_json_file: str, source_keyword: str):
+        """
+        智能关键词自动扩展
+        
+        Args:
+            analysis_json_file: 分析结果JSON文件路径
+            source_keyword: 源关键词
+        """
+        if not analysis_json_file:
+            self.logger.debug("无分析报告，跳过关键词自动扩展")
+            return
+        
+        try:
+            # 创建关键词扩展器
+            from keyword_auto_expander import KeywordAutoExpander
+            
+            expander = KeywordAutoExpander(
+                config_manager=self.config_manager,
+                logger=self.logger
+            )
+            
+            # 执行自动扩展
+            new_keywords = expander.analyze_and_expand(analysis_json_file, source_keyword)
+            
+            if new_keywords:
+                self.logger.info(f"自动发现并添加 {len(new_keywords)} 个高价值关键词: {new_keywords}")
+            else:
+                self.logger.debug("未发现符合扩展条件的关键词")
+                
+        except ImportError as e:
+            self.logger.warning(f"关键词自动扩展器未找到: {e}")
+        except Exception as e:
+            self.logger.error(f"关键词自动扩展失败: {e}")
     
     def _run_business_analysis(self, comparison_file: str) -> Optional[str]:
         """

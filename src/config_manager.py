@@ -198,11 +198,23 @@ class ConfigManager:
     def save_config(self, config: Dict[str, Any]):
         """保存配置到文件"""
         try:
+            # 确保配置的合法性
+            validated_config = self._validate_and_sanitize_config(config)
+            
+            # 创建备份
+            self._create_config_backup()
+            
             with open(self.config_path, 'w', encoding='utf-8') as f:
-                json.dump(config, f, ensure_ascii=False, indent=2)
+                json.dump(validated_config, f, ensure_ascii=False, indent=2)
+            
+            # 更新内存中的配置
+            self._config = validated_config
+            
             logger.info(f"配置文件保存成功: {self.config_path}")
         except Exception as e:
             logger.error(f"保存配置文件失败: {e}")
+            # 尝试恢复备份
+            self._restore_config_backup()
             raise
     
     def get_enabled_keywords(self) -> List[Dict[str, Any]]:
@@ -286,6 +298,105 @@ class ConfigManager:
         self._config["feishu_webhook"] = webhook_url
         self.save_config(self._config)
         logger.info("飞书webhook已更新")
+    
+    def _validate_and_sanitize_config(self, config: Dict[str, Any]) -> Dict[str, Any]:
+        """验证和清理配置数据"""
+        # 深拷贝以避免修改原始数据
+        import copy
+        clean_config = copy.deepcopy(config)
+        
+        # 确保关键词列表存在
+        if "keywords" not in clean_config:
+            clean_config["keywords"] = []
+        
+        # 清理每个关键词配置
+        cleaned_keywords = []
+        for kw_config in clean_config["keywords"]:
+            if isinstance(kw_config, dict) and "main_keyword" in kw_config:
+                # 确保必需字段存在
+                cleaned_kw = {
+                    "main_keyword": str(kw_config["main_keyword"]).strip(),
+                    "enabled": kw_config.get("enabled", True),
+                    "schedule": kw_config.get("schedule", "0 12 * * *")
+                }
+                
+                # 保留自动添加的元数据
+                if kw_config.get("auto_added", False):
+                    cleaned_kw.update({
+                        "auto_added": True,
+                        "source_keyword": kw_config.get("source_keyword", ""),
+                        "discovery_pattern": kw_config.get("discovery_pattern", ""),
+                        "discovery_time": kw_config.get("discovery_time", ""),
+                        "confidence_score": float(kw_config.get("confidence_score", 0.0)),
+                        "business_value": int(kw_config.get("business_value", 5))
+                    })
+                
+                # 验证关键词格式
+                if cleaned_kw["main_keyword"] and len(cleaned_kw["main_keyword"]) >= 2:
+                    cleaned_keywords.append(cleaned_kw)
+                else:
+                    logger.warning(f"跳过无效关键词配置: {kw_config}")
+        
+        clean_config["keywords"] = cleaned_keywords
+        
+        # 验证其他必需字段
+        if "feishu_webhook" not in clean_config:
+            clean_config["feishu_webhook"] = ""
+        
+        return clean_config
+    
+    def _create_config_backup(self):
+        """创建配置文件备份"""
+        if os.path.exists(self.config_path):
+            backup_path = self.config_path + ".backup"
+            try:
+                import shutil
+                shutil.copy2(self.config_path, backup_path)
+                logger.debug(f"配置文件备份已创建: {backup_path}")
+            except Exception as e:
+                logger.warning(f"创建配置备份失败: {e}")
+    
+    def _restore_config_backup(self):
+        """从备份恢复配置文件"""
+        backup_path = self.config_path + ".backup"
+        if os.path.exists(backup_path):
+            try:
+                import shutil
+                shutil.copy2(backup_path, self.config_path)
+                logger.info(f"配置文件已从备份恢复: {backup_path}")
+            except Exception as e:
+                logger.error(f"从备份恢复配置失败: {e}")
+    
+    def get_auto_added_keywords_stats(self) -> Dict[str, Any]:
+        """获取自动添加关键词的统计信息"""
+        if self._config is None:
+            self.load_config()
+        
+        auto_added_count = 0
+        manual_count = 0
+        auto_keywords = []
+        
+        for kw_config in self._config.get("keywords", []):
+            if kw_config.get("auto_added", False):
+                auto_added_count += 1
+                auto_keywords.append({
+                    "keyword": kw_config["main_keyword"],
+                    "source": kw_config.get("source_keyword", ""),
+                    "pattern": kw_config.get("discovery_pattern", ""),
+                    "confidence": kw_config.get("confidence_score", 0.0),
+                    "business_value": kw_config.get("business_value", 5),
+                    "discovery_time": kw_config.get("discovery_time", "")
+                })
+            else:
+                manual_count += 1
+        
+        return {
+            "total_keywords": auto_added_count + manual_count,
+            "auto_added_count": auto_added_count,
+            "manual_count": manual_count,
+            "auto_added_percentage": auto_added_count / (auto_added_count + manual_count) * 100 if (auto_added_count + manual_count) > 0 else 0,
+            "auto_keywords": auto_keywords
+        }
 
 
 def load_proxy_list(proxy_file: str) -> List[str]:

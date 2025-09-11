@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商机挖掘分析报告 - how to use ai</title>
+    
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+        line-height: 1.6;
+        color: #2c3e50;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .header {
+        text-align: center;
+        padding: 40px 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .header .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        font-weight: 300;
+    }
+    
+    .section {
+        margin-bottom: 40px;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-left: 4px solid #667eea;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .section-title .icon {
+        font-size: 1.5rem;
+    }
+    
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .metric-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid #e9ecef;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 5px;
+    }
+    
+    .metric-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    .quality-indicator {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin: 5px;
+    }
+    
+    .quality-excellent { background: #d4edda; color: #155724; }
+    .quality-good { background: #d1ecf1; color: #0c5460; }
+    .quality-average { background: #fff3cd; color: #856404; }
+    .quality-poor { background: #f8d7da; color: #721c24; }
+    
+    .drift-pattern {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .drift-pattern:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+    }
+    
+    .pattern-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .pattern-verb {
+        font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        background: #667eea;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+    
+    .pattern-frequency {
+        background: #28a745;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+    }
+    
+    .pattern-examples {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-top: 8px;
+    }
+    
+    .opportunity-card {
+        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+        border: 1px solid #feb2b2;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .opportunity-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    
+    .opportunity-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 10px;
+    }
+    
+    .opportunity-desc {
+        color: #4a5568;
+        margin-bottom: 15px;
+    }
+    
+    .keyword-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 10px 0;
+    }
+    
+    .keyword-tag {
+        background: #667eea;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .recommendation-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .recommendation-list li {
+        background: #f8f9fa;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        position: relative;
+    }
+    
+    .recommendation-list li::before {
+        content: '✓';
+        position: absolute;
+        left: -12px;
+        top: 15px;
+        background: #28a745;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    .chart-container {
+        margin: 20px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20px;
+        margin: 10px 0;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transition: width 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-top: 40px;
+        color: #6c757d;
+    }
+    
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    .tag {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: transform 0.2s ease;
+    }
+    
+    .tag:hover {
+        transform: scale(1.05);
+    }
+    
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .summary-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .summary-card h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            margin: 10px;
+            padding: 15px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+        }
+        
+        .metric-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .summary-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        
+<div class="header">
+    <h1>🚀 商机挖掘分析报告</h1>
+    <div class="subtitle">
+        关键词: <strong>how to use ai</strong> | 
+        分析时间: 2025年09月12日 01:41 |
+        智能语义漂移检测
+    </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">📊</span>
+        执行摘要
+    </h2>
+    
+    <div class="summary-grid">
+        <div class="summary-card">
+            <h3>🎯 核心发现</h3>
+            <p>本次分析发现 <strong>1,349</strong> 个新增关键词，其中 <strong>489</strong> 个具有高商业价值，质量得分为 <strong>38.3分</strong>。</p>
+            <div class="quality-indicator quality-average">
+                数据健康度: 一般
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <h3>💡 商业机会</h3>
+            <p>识别出多个高价值的语义漂移模式，特别是用户对AI平台访问和技能学习的强烈需求，为相关产品和服务提供了明确的市场方向。</p>
+        </div>
+        
+        <div class="summary-card">
+            <h3>⚡ 立即行动</h3>
+            <p>建议优先关注AI平台准入教育市场，同时实施智能过滤机制减少数据噪音，提高分析精度。</p>
+        </div>
+    </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">🔍</span>
+        数据质量分析
+    </h2>
+    
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-value">489</div>
+            <div class="metric-label">高价值关键词</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">207</div>
+            <div class="metric-label">过滤噪音</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">2.6:1</div>
+            <div class="metric-label">信噪比</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">38.3%</div>
+            <div class="metric-label">质量得分</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <h3>数据分布概览</h3>
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>高价值</span>
+                <span>36.2%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 36.24907338769459%">
+                    36.2%
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>噪音</span>
+                <span>15.3%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 15.344699777613046%; background: #dc3545;">
+                    15.3%
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">🔄</span>
+        语义漂移分析
+    </h2>
+    
+    <p>语义漂移检测识别出用户搜索行为中的动词变化模式，这些变化揭示了用户需求的演进和新兴市场机会。</p>
+    
+    <h3 style="margin: 25px 0 15px 0; color: #2c3e50;">🎯 关键漂移模式</h3>
+    
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → access</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 12 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> ai_platform_access
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to access 15 ai | how to access ai alive on tiktok | how to access ai builder
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → take</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: noise</span>
+                    </div>
+                    <span class="pattern-frequency">出现 5 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> ai_tool_usage
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to take ai help | how to take ai notes from zoom meeting | how to take ai out of google search
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → create</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 3 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> ai_tool_usage
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to use ai to create app | how to use ai to create fashion illustration | how to use ai to create workout plan
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → work</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 2 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> general
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to work einstein ai | how to work my ai
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → aim</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 2 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> general
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to aim lux ult | mgs3 how to aim without shooting
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → connect</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 7 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> tech_integration
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to connect ai hydra 26 | how to connect airpod max | how to connect airpods max
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → add</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 6 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> ai_tool_usage
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to add ai in unity | how to add ai to your app | how to add kilograms
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → set</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: low</span>
+                    </div>
+                    <span class="pattern-frequency">出现 4 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> general
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to set up a kx adapter | how to set up air link | how to set up air purifier
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → change</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: high</span>
+                    </div>
+                    <span class="pattern-frequency">出现 2 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> general
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to change airsoft handguard | how to change ig language
+                </div>
+            </div>
+            <div class="drift-pattern">
+                <div class="pattern-header">
+                    <div>
+                        <span class="pattern-verb">use → put</span>
+                        <span style="margin-left: 10px; color: #6c757d;">价值等级: low</span>
+                    </div>
+                    <span class="pattern-frequency">出现 5 次</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>上下文:</strong> general
+                </div>
+                <div class="pattern-examples">
+                    <strong>示例:</strong> how to put a cv together | how to put a experience on resume | how to put ai in your own words
+                </div>
+            </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">💡</span>
+        商业机会分析
+    </h2>
+    
+    <p>基于语义漂移分析，我们识别出以下具有商业价值的市场机会：</p>
+    
+    
+            <div class="opportunity-card">
+                <div class="opportunity-title">🚪 AI平台访问市场机会</div>
+                <div class="opportunity-desc">
+                    用户在寻找各种AI平台的访问方法，表明存在平台导航、教育内容和技术支持的巨大需求。
+                </div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.8); border-radius: 6px;">
+                    <strong>模式:</strong> use → access (频次: 12)
+                    <div class="keyword-list">
+                        <span class="keyword-tag">how to access 15 ai</span> <span class="keyword-tag">how to access ai alive on tiktok</span> <span class="keyword-tag">how to access ai builder</span>
+                    </div>
+                </div></div>
+            <div class="opportunity-card">
+                <div class="opportunity-title">🛠️ 新兴AI工具市场机会</div>
+                <div class="opportunity-desc">
+                    用户对AI工具的创作和生成能力有强烈需求，SaaS产品和API服务存在巨大市场空间。
+                </div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.8); border-radius: 6px;">
+                    <strong>模式:</strong> use → create (频次: 3)
+                    <div class="keyword-list">
+                        <span class="keyword-tag">how to use ai to create app</span> <span class="keyword-tag">how to use ai to create fashion illustration</span> <span class="keyword-tag">how to use ai to create workout plan</span>
+                    </div>
+                </div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.8); border-radius: 6px;">
+                    <strong>模式:</strong> use → add (频次: 6)
+                    <div class="keyword-list">
+                        <span class="keyword-tag">how to add ai in unity</span> <span class="keyword-tag">how to add ai to your app</span> <span class="keyword-tag">how to add kilograms</span>
+                    </div>
+                </div></div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">📈</span>
+        市场趋势洞察
+    </h2>
+    
+    <div class="summary-grid">
+        <div class="summary-card">
+            <h3>🔥 热门趋势</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;">📱 移动端AI工具需求增长</li>
+                <li style="margin: 8px 0;">🎯 平台整合与一站式服务</li>
+                <li style="margin: 8px 0;">🎓 AI技能教育市场爆发</li>
+                <li style="margin: 8px 0;">🔗 API集成和自动化需求</li>
+            </ul>
+        </div>
+        
+        <div class="summary-card">
+            <h3>⚠️ 风险提示</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;">🚫 硬件相关搜索干扰严重</li>
+                <li style="margin: 8px 0;">📉 部分传统工具热度下降</li>
+                <li style="margin: 8px 0;">🔄 用户需求变化速度加快</li>
+                <li style="margin: 8px 0;">💸 免费工具竞争激烈</li>
+            </ul>
+        </div>
+        
+        <div class="summary-card">
+            <h3>🎯 目标用户</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;">👨‍💻 开发者和技术人员</li>
+                <li style="margin: 8px 0;">🎨 创意工作者和设计师</li>
+                <li style="margin: 8px 0;">📊 商业分析师和营销人员</li>
+                <li style="margin: 8px 0;">🎓 学生和自学者</li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">🎯</span>
+        战略建议
+    </h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+        <div>
+            <h3 style="color: #28a745; margin-bottom: 15px;">✅ 立即行动</h3>
+            <ul class="recommendation-list">
+                <li>开发AI平台导航和比较工具</li>
+                <li>创建AI技能学习课程和认证体系</li>
+                <li>实施智能过滤系统减少数据噪音</li>
+                <li>建立用户需求变化监控机制</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 15px;">🚀 中长期规划</h3>
+            <ul class="recommendation-list">
+                <li>构建AI工具生态系统和API市场</li>
+                <li>开发智能化的个人AI助手</li>
+                <li>创建行业垂直的AI解决方案</li>
+                <li>建立AI技术社区和知识库</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #ffc107;">
+        <h3 style="color: #856404; margin-bottom: 10px;">⚡ 关键成功因素</h3>
+        <p style="margin-bottom: 15px;">基于数据分析，以下因素对商业成功至关重要：</p>
+        <div class="tag-cloud">
+            <span class="tag">用户体验优先</span>
+            <span class="tag">数据驱动决策</span>
+            <span class="tag">快速迭代优化</span>
+            <span class="tag">社区生态建设</span>
+            <span class="tag">技术创新领先</span>
+            <span class="tag">教育内容质量</span>
+        </div>
+    </div>
+</div>
+        
+<div class="section">
+    <h2 class="section-title">
+        <span class="icon">📋</span>
+        技术附录
+    </h2>
+    
+    <h3 style="margin: 20px 0 10px 0;">🛡️ 推荐过滤规则</h3>
+    <ul style="list-style: none; padding: 0;">
+        
+            <li style="margin: 10px 0; padding: 10px; background: #fff5f5; border-radius: 6px;">
+                <strong>规则:</strong> 过滤 'use' → 'take' 的漂移<br>
+                <strong>原因:</strong> 频繁出现噪音模式 (出现5次)<br>
+                <strong>示例:</strong> how to take ai help | how to take ai notes from zoom meeting | how to take ai out of google search
+            </li>
+            <li style="margin: 10px 0; padding: 10px; background: #fff5f5; border-radius: 6px;">
+                <strong>规则:</strong> 过滤 'use' → 'learn' 的漂移<br>
+                <strong>原因:</strong> 频繁出现噪音模式 (出现3次)<br>
+                <strong>示例:</strong> how to learn assembly language | how to learn kazakhstan language | how to learn lao
+            </li>
+    </ul>
+    
+    <h3 style="margin: 20px 0 10px 0;">📊 分析方法说明</h3>
+    <p>本报告采用先进的语义漂移检测技术，结合AI相关性评分算法，对关键词变化进行多维度分析：</p>
+    <ul style="margin: 10px 0; padding-left: 20px;">
+        <li>动词漂移模式识别</li>
+        <li>语义相关性评估 (0-1.0分制)</li>
+        <li>噪音检测和过滤</li>
+        <li>商业价值评分计算</li>
+        <li>市场机会挖掘</li>
+    </ul>
+</div>
+        
+<div class="footer">
+    <p>
+        🤖 本报告由智能语义分析系统自动生成<br>
+        生成时间: 2025年09月12日 01:41:15<br>
+        <strong>Claude Code 商机挖掘分析系统 v2.0</strong>
+    </p>
+</div>
+    </div>
+    
+<script>
+    // 添加交互效果
+    document.addEventListener('DOMContentLoaded', function() {
+        // 为卡片添加点击效果
+        const cards = document.querySelectorAll('.metric-card, .opportunity-card, .drift-pattern');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+        
+        // 添加滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease';
+            observer.observe(section);
+        });
+    });
+</script>
+</body>
+</html>
