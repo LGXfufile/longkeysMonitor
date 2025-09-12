@@ -50,6 +50,17 @@
       "discovery_time": "2025-09-12T02:06:05.444296",
       "confidence_score": 0.97,
       "business_value": 8
+    },
+    {
+      "main_keyword": "how to create ai",
+      "enabled": true,
+      "schedule": "0 12 * * *",
+      "auto_added": true,
+      "source_keyword": "how to use ai",
+      "discovery_pattern": "use → create",
+      "discovery_time": "2025-09-13T01:15:17.028618",
+      "confidence_score": 0.8400000000000001,
+      "business_value": 9
     }
   ],
   "feishu_webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/fd8c7806-5aca-4dbf-b621-8b3f1c271bbd",

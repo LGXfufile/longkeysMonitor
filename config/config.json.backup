@@ -39,11 +39,25 @@
       "main_keyword": "SEO工具",
       "enabled": false,
       "schedule": "0 14 * * *"
+    },
+    {
+      "main_keyword": "how to access ai",
+      "enabled": true,
+      "schedule": "0 12 * * *",
+      "auto_added": true,
+      "source_keyword": "how to use ai",
+      "discovery_pattern": "use → access",
+      "discovery_time": "2025-09-12T02:06:05.444296",
+      "confidence_score": 0.97,
+      "business_value": 8
     }
   ],
   "feishu_webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/fd8c7806-5aca-4dbf-b621-8b3f1c271bbd",
   "request_settings": {
-    "base_delay": [1, 3],
+    "base_delay": [
+      1,
+      3
+    ],
     "max_retries": 3,
     "timeout": 10,
     "dynamic_delay": true
@@ -61,7 +75,10 @@
     "include_double_letters": true,
     "include_prefix": true,
     "include_suffix": true,
-    "languages": ["zh", "en"]
+    "languages": [
+      "zh",
+      "en"
+    ]
   },
   "storage_settings": {
     "data_retention_days": 30,

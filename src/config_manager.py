@@ -20,6 +20,12 @@ class KeywordConfig:
     main_keyword: str
     enabled: bool = True
     schedule: str = "0 12 * * *"
+    auto_added: bool = False
+    source_keyword: str = ""
+    discovery_pattern: str = ""
+    discovery_time: str = ""
+    confidence_score: float = 0.0
+    business_value: int = 5
     
     def __post_init__(self):
         if not self.main_keyword.strip():
